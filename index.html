@@ -1,173 +1,189 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-  	<meta charset="utf-8">
-    <title>Homeless Helper</title>
-    <style type="text/css">
-      #map {
-      	float: right;
-      	width: 60%;
-        height: 100%;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title>Homeless Helper</title>
+  <style type="text/css">
+    #map {
+      float: right;
+      width: 60%;
+      height: 100%;
+    }
 
-  </head>
-  <body>
-	<div id="map"></div>
-  	<script>
-  		var lat1 = 37.87064730000001;
-  		var lat2 = -122.25159000000001;
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      console.log(lat);
+      console.log(long);
+      var userPosition = {
+        lat: lat,
+        lng: long
+      };
+     // The map, centered at userPosition
+      var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 15, center: userPosition});
+     // The marker, positioned at userPosition
+      var marker = new google.maps.Marker({position: userPosition, map: map});
+    }
 
 	  // Initialize and add the map
 	  function initMap() {
-	    // The location of Uluru
-	    var uluru = {lat: lat1, lng: lat2};
-	    // The map, centered at Uluru
-	    var map = new google.maps.Map(
-	        document.getElementById('map'), {zoom: 15, center: uluru});
-	    // The marker, positioned at Uluru
-	    var marker = new google.maps.Marker({position: uluru, map: map});
-
+	    // The location of userPosition
+      getLocation();
 	  }
 	    </script>
-	    <!--Load the API from the specified URL
+  <!--Load the API from the specified URL
 	    * The async attribute allows the browser to render the page while the API loads
 	    * The key parameter will contain your own API key (which is not needed for this tutorial)
 	    * The callback parameter executes the initMap() function
 	    -->
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgURj2E6pEsUopimD_h8acPGhNdZpJrs&callback=initMap">
-    </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgURj2E6pEsUopimD_h8acPGhNdZpJrs&callback=initMap">
+  </script>
 
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">homeless-helper</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item">	    
-	      	<!-- Button trigger modal -->
-			<button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#aboutModal">
-			  About
-			</button>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">homeless-helper</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <!-- Button trigger modal -->
+          <button type="button" class="nav-link btn btn-link" data-toggle="modal" data-target="#aboutModal">
+            About
+          </button>
 
-			<!-- about modal -->
-			<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">About Us</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        Hello! <br> <br>
+          <!-- about modal -->
+          <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">About Us</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Hello! <br> <br>
 
-			        We strive to help homeless people by connecting them with local resources and access to basic necessities, such as food.
+                  We strive to help homeless people by connecting them with local resources and access to basic necessities, such as food.
 
-			        <br> <br>
+                  <br> <br>
 
-			        Through this application, users like you can notify locals of where homeless people are located, and we will send out a notification to the nearby users letting them know that there is someone nearby that needs help.
+                  Through this application, users like you can notify locals of where homeless people are located, and we will send out a notification to the nearby users letting them know that there is someone nearby that needs help.
 
-			        <br> <br>
+                  <br> <br>
 
-			        We hope that this web application can help homeless people by providing them access to basic necessities.
+                  We hope that this web application can help homeless people by providing them access to basic necessities.
 
-			        <br> <br>
+                  <br> <br>
 
-			        Thank you!
+                  Thank you!
 
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<!-- /about modal -->
-	      </li>
-	      <li class="nav-item">
-	        <button class="nav-link btn btn-link" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo" href="#">Contact Us</button>
-	        <!-- contact us modal -->
-			<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        <form>
-			          <div class="form-group">
-			            <label for="recipient-name" class="col-form-label">Name:</label>
-			            <input type="text" class="form-control" id="recipient-name">
-			          </div>
-			          <div class="form-group">
-			            <label for="recipient-name" class="col-form-label">Email:</label>
-			            <input type="email" class="form-control" id="recipient-name">
-			          </div>
-			          <div class="form-group">
-			            <label for="message-text" class="col-form-label">Message:</label>
-			            <textarea class="form-control" id="message-text"></textarea>
-			          </div>
-			        </form>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Send message</button>
-			      </div>
-			    </div>
-			  </div>
-			</div> <!-- /contact us modal -->
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /about modal -->
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn btn-link" data-toggle="modal" data-target="#contactModal" data-whatever="@mdo" href="#">Contact Us</button>
+          <!-- contact us modal -->
+          <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Name:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Email:</label>
+                      <input type="email" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Message:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+              </div>
+            </div>
+          </div> <!-- /contact us modal -->
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- /navbar -->
+  <!-- /navbar -->
 
-    <!-- form -->
-    <form style="width: 35%;" class="ml-4 mt-5">
-	  <div class="form-group">
-	    <label for="exampleFormControlInput1">Needs</label>
-	    <input type="form-control" class="form-control" id="exampleFormControlInput1" placeholder="What is the person in need of?">
-	  </div>
+  <!-- form -->
+  <form style="width: 35%;" class="ml-4 mt-5">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Needs</label>
+      <input type="form-control" class="form-control" id="exampleFormControlInput1" placeholder="What is the person in need of?">
+    </div>
 
-	  <div class="form-group">
-	    <label for="exampleFormControlTextarea1">Description of Location</label>
-	    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="For example, in front of which store or by which landmark."></textarea>
-	  </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Description of Location</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="For example, in front of which store or by which landmark."></textarea>
+    </div>
 
-	  <div class="form-group">
-	    <label for="exampleFormControlTextarea1">Description of Person</label>
-	    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Clothing color, etc."></textarea>
-	  </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Description of Person</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Clothing color, etc."></textarea>
+    </div>
 
-  	  <button type="button" class="btn-lg btn btn-outline-danger mt-2">Submit</button>
+    <button type="button" class="btn-lg btn btn-outline-danger mt-2">Submit</button>
 
-	</form> <!-- /form -->
+  </form> <!-- /form -->
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-  </body>
+</body>
+
 </html>
-
-
-
