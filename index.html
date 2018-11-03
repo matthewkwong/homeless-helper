@@ -26,62 +26,6 @@
 <body>
   <div id="map"></div>
 
-	<!--Firebase Initialization-->
-  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-		apiKey: "AIzaSyDpIqc9REzukrlhicX_RUNtgI2NXaFFY8U",
-		authDomain: "homeless-helper2.firebaseapp.com",
-		databaseURL: "https://homeless-helper2.firebaseio.com",
-		projectId: "homeless-helper2",
-		storageBucket: "homeless-helper2.appspot.com",
-		messagingSenderId: "1057843308229"
-	  };
-	  firebase.initializeApp(config);
-	</script>
-
-
-	<!--Google Maps Initialization-->
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-    }
-
-    function showPosition(position) {
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      console.log(lat);
-      console.log(long);
-      var userPosition = {
-        lat: lat,
-        lng: long
-      };
-     // The map, centered at userPosition
-      var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 15, center: userPosition});
-     // The marker, positioned at userPosition
-      var marker = new google.maps.Marker({position: userPosition, map: map});
-    }
-
-	  // Initialize and add the map
-	  function initMap() {
-	    // The location of userPosition
-      getLocation();
-	  }
-	    </script>
-  <!--Load the API from the specified URL
-	    * The async attribute allows the browser to render the page while the API loads
-	    * The key parameter will contain your own API key (which is not needed for this tutorial)
-	    * The callback parameter executes the initMap() function
-	    -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgURj2E6pEsUopimD_h8acPGhNdZpJrs&callback=initMap">
-  </script>
-
   <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">homeless-helper</a>
@@ -197,6 +141,37 @@
     <button type="button" class="btn-lg btn btn-outline-danger mt-2">Submit</button>
 
   </form> <!-- /form -->
+
+
+
+  <!--Script files-->
+
+  <!--Firebase Initialization-->
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-database.js"></script>
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDpIqc9REzukrlhicX_RUNtgI2NXaFFY8U",
+      authDomain: "homeless-helper2.firebaseapp.com",
+      databaseURL: "https://homeless-helper2.firebaseio.com",
+      projectId: "homeless-helper2",
+      storageBucket: "homeless-helper2.appspot.com",
+      messagingSenderId: "1057843308229"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="script.js"></script>
+
+  <!--Load the API from the specified URL
+  	    * The async attribute allows the browser to render the page while the API loads
+  	    * The key parameter will contain your own API key (which is not needed for this tutorial)
+  	    * The callback parameter executes the initMap() function
+  	    -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgURj2E6pEsUopimD_h8acPGhNdZpJrs&callback=initMap"></script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
