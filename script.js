@@ -1,16 +1,18 @@
 var database = firebase.database();
+let userPosition;
 
-// Initialize and add the map
 function initMap() {
-  // The location of userPosition
-    getLocation();
+  getLocation()
+  console.log('getLocation called')
 }
 
 //Google Maps Initialization
 //USER LOCATION
 function getLocation() {
+  console.log('attempting to get location...')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
+    console.log('location retrieved')
   } else {
     alert("Geolocation is not supported by this browser.");
   }
@@ -21,11 +23,19 @@ function showPosition(position) {
   long = position.coords.longitude;
   console.log(lat);
   console.log(long);
-  var userPosition = {
+  userPosition = {
     lat: lat,
     lng: long
   };
+  console.log(userPosition)
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: userPosition
+  });
+}
 
+function addMarker() {
+  console.log('adding marker')
   // Get a key for a new Post.
   var newPostKey = firebase.database().ref("/userPosition").push(userPosition).key;
 
@@ -33,23 +43,23 @@ function showPosition(position) {
   var updates = {};
   updates['/posts/' + newPostKey] = userPosition;
 
+  console.log('added')
   var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: userPosition
   });
 
-    database.ref('userPosition').once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        var userCoords = childSnapshot.val();
-        console.log(userCoords);
+  var newPin = new google.maps.Marker({
+    map: map,
+    position: userPosition
+  });
 
-        //Making new Google Map pins for every location
-        var newPin = new google.maps.Marker({
-          map: map,
-          position: userCoords
-        });
-      });
+  database.ref('userPosition').once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var userCoords = childSnapshot.val();
+      console.log(userCoords);
     });
+  });
 
   return firebase.database().ref().update(updates);
 }
