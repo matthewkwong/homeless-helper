@@ -1,8 +1,7 @@
 var database = firebase.database();
 
-var locations = database.ref('locations/');
-
-locations.once('value').then(function(snapshot) {console.log(snapshot.val())})
+// var locations = database.ref('userPosition/lat');
+// locations.once('value').then(function(snapshot) {console.log(snapshot.val())})
 
 
 //Google Maps Initialization
@@ -24,6 +23,14 @@ function showPosition(position) {
     lat: lat,
     lng: long
   };
+
+// Get a key for a new Post.
+  var newPostKey = firebase.database().ref("/userPosition").push(userPosition).key;
+
+  // Write the new user location data.
+  var updates = {};
+  updates['/posts/' + newPostKey] = userPosition;
+
  // The map, centered at userPosition
   var map = new google.maps.Map(
     document.getElementById('map'), {
@@ -32,6 +39,8 @@ function showPosition(position) {
     });
  // The marker, positioned at userPosition
   var marker = new google.maps.Marker({position: userPosition, map: map});
+
+  return firebase.database().ref().update(updates);
 }
 
 // Initialize and add the map
