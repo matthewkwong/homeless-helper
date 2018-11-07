@@ -77,6 +77,18 @@ function addMarker() {
       console.log(userCoords);
     });
   });
-  
+
+  //References saved values in Firebase
+    database.ref('userPosition').once('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var userCoords = childSnapshot.val();
+
+        //Making new Google Map pins for every location
+        var newPin = new google.maps.Marker({
+          map: map,
+          position: userCoords
+        });
+      });
+    });
   return firebase.database().ref().update(updates);
 }
