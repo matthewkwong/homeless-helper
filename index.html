@@ -4,20 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Help the Homies</title>
-  <style type="text/css">
-    #map {
-      float: right;
-      width: 65%;
-      height: 100%;
-    }
-
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="shortcut icon" type="image/png" href="favicon.ico" />
@@ -140,7 +126,11 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Send message</button>
+                  <button type="button" class="btn btn-primary">
+                    <form method="post" action="helpthehomies.co@gmail.com">
+                      <input type="submit" name="submit" value="Submit" />
+                    </form>
+                  </button>
                 </div>
               </div>
             </div>

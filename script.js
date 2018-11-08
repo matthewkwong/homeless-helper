@@ -31,16 +31,15 @@ function showPosition(position) {
 
   console.log(userPosition)
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
+    zoom: 16,
     center: userPosition
   });
 
+//Loading new pins once form is submitted
 //References saved values in Firebase
   database.ref('userPosition').once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var userCoords = childSnapshot.val();
-      console.log(userCoords);
-
       //Making new Google Map pins for every location
       var newPin = new google.maps.Marker({
         map: map,
@@ -57,12 +56,12 @@ function addMarker() {
 
   // Write the new user location data.
   var updates = {};
-  updates['/posts/' + newPostKey] = userPosition;
+  // updates['/posts/' + newPostKey] = userPosition;
 
   console.log('added')
   //puts a pin on the map at the current location based on lat and long.
   var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
+      zoom: 16,
       center: userPosition
   });
 
@@ -78,17 +77,5 @@ function addMarker() {
     });
   });
 
-  //References saved values in Firebase
-    database.ref('userPosition').once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        var userCoords = childSnapshot.val();
-
-        //Making new Google Map pins for every location
-        var newPin = new google.maps.Marker({
-          map: map,
-          position: userCoords
-        });
-      });
-    });
   return firebase.database().ref().update(updates);
 }
