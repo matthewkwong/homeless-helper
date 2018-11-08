@@ -43,6 +43,7 @@ function showPosition(position) {
       //Making new Google Map pins for every location
       var newPin = new google.maps.Marker({
         map: map,
+        animation: google.maps.Animation.DROP,
         position: userCoords
       });
     });
@@ -65,10 +66,12 @@ function addMarker() {
       center: userPosition
   });
 
+
   var newPin = new google.maps.Marker({
     map: map,
     position: userPosition
   });
+
 
   database.ref('userPosition').once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -76,6 +79,7 @@ function addMarker() {
       console.log(userCoords);
     });
   });
+
 
   return firebase.database().ref().update(updates);
 }
