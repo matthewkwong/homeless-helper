@@ -63,7 +63,10 @@ function addMarker() {
   //puts a pin on the map at the current location based on lat and long.
   var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
-      center: userPosition
+      center: userPosition,
+      icon:{
+         url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+      }
   });
 
 
